@@ -53,11 +53,6 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
-  config.trigger.after :up do |trigger|
-    trigger.name = "Finished Message"
-    trigger.info = "#{vb.name} Machine is up!"
-  end
-
   # Provision Master Nodes
   (1..NUM_MASTER_NODE).each do |i|
       config.vm.define "master-#{i}" do |node|
@@ -123,6 +118,11 @@ Vagrant.configure("2") do |config|
         node.vm.provision "file", source: "ubuntu/docker/daemon.json", destination: "/home/vagrant/daemon.json"
         node.vm.provision "shell", inline: "mv /home/vagrant/daemon.json /etc/docker/daemon.json"
         node.vm.provision "restart-docker", type: "shell", :path => "ubuntu/docker/restart-docker.sh"
+
+        node.trigger.after :up do |trigger|
+            trigger.name = "Finished Message"
+            trigger.info = "#{vb.name} Machine is up!"
+        end
 
     end
   end
