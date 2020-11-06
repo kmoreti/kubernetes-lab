@@ -133,3 +133,5 @@ Vagrant.configure("2") do |config|
     end
   end
 end
+
+`rm -rf ubuntu/docker/daemon_.json`
