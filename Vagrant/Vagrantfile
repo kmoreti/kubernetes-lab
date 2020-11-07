@@ -130,6 +130,7 @@ Vagrant.configure("2") do |config|
             trigger.info = "#{node.vm.hostname} Machine is up!"
         end
 
+
     end
   end
 end
