@@ -3,7 +3,7 @@ GUEST_ADDITION_VERSION=6.1.16
 GUEST_ADDITION_ISO=VBoxGuestAdditions_${GUEST_ADDITION_VERSION}.iso
 GUEST_ADDITION_MOUNT=/media/VBoxGuestAdditions
 
-is_virtualbox_guest_utils_installed=$(lsmod | grep -i vboxguest)
+is_virtualbox_guest_utils_installed=$(lsmod | grep -io vboxguest)
 
 if [ -z "$is_virtualbox_guest_utils_installed" ]
 then
