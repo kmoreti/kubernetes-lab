@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
           s.args = ["enp0s8"]
         end
 
-        node.vm.provision "install-guest-additions", :type => "shell", :path => "vagrant/install-guest-additions.sh"
+        node.vm.provision "install-guest-additions", :type => "shell", :path => "ubuntu/vagrant/install-guest-additions.sh"
         node.vm.provision "setup-dns", type: "shell", :path => "ubuntu/update-dns.sh"
         node.vm.provision "file", source: "./ubuntu/cert_verify.sh", destination: "$HOME/"
 
@@ -94,7 +94,7 @@ Vagrant.configure("2") do |config|
     node.vm.network :private_network, ip: IP_NW + "#{LB_IP_START}"
 	node.vm.network "forwarded_port", guest: 22, host: 2730
 
-    node.vm.provision "install-guest-additions", :type => "shell", :path => "vagrant/install-guest-additions.sh"
+    node.vm.provision "install-guest-additions", :type => "shell", :path => "ubuntu/vagrant/install-guest-additions.sh"
     node.vm.provision "setup-hosts", :type => "shell", :path => "ubuntu/vagrant/setup-hosts.sh" do |s|
       s.args = ["enp0s8"]
     end
@@ -119,7 +119,7 @@ Vagrant.configure("2") do |config|
           s.args = ["enp0s8"]
         end
 
-        node.vm.provision "install-guest-additions", :type => "shell", :path => "vagrant/install-guest-additions.sh"
+        node.vm.provision "install-guest-additions", :type => "shell", :path => "ubuntu/vagrant/install-guest-additions.sh"
         node.vm.provision "setup-dns", type: "shell", :path => "ubuntu/update-dns.sh"
         node.vm.provision "install-docker", type: "shell", :path => "ubuntu/install-docker.sh"
         node.vm.provision "allow-bridge-nf-traffic", :type => "shell", :path => "ubuntu/allow-bridge-nf-traffic.sh"
