@@ -1,5 +1,13 @@
 # Install etcd
-sudo snap install etcd
+sudo apt update
+sudo apt install wget -y
+
+cd /tmp
+wget -q --show-progress --https-only --timestamping "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz"
+
+tar -xvf etcd-v3.3.9-linux-amd64.tar.gz
+sudo mv etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
+
 
 # Configure the etcd Server
 sudo mkdir -p /etc/etcd /var/lib/etcd
@@ -15,7 +23,7 @@ Description=etcd
 Documentation=https://github.com/coreos
 
 [Service]
-ExecStart=/snap/etcd/230/bin/etcd \\
+ExecStart=/usr/local/bin/etcd \\
   --name ${ETCD_NAME} \\
   --cert-file=/etc/etcd/etcd-server.crt \\
   --key-file=/etc/etcd/etcd-server.key \\
