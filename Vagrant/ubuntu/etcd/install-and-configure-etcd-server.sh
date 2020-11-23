@@ -1,5 +1,5 @@
 # Install etcd
-sudo apt install etcd -y
+sudo snap install etcd -y
 
 # Configure the etcd Server
 sudo mkdir -p /etc/etcd /var/lib/etcd
