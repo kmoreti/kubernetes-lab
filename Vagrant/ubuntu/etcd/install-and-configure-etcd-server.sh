@@ -15,7 +15,7 @@ Description=etcd
 Documentation=https://github.com/coreos
 
 [Service]
-ExecStart=/usr/local/bin/etcd \\
+ExecStart=/snap/etcd/230/bin/etcd \\
   --name ${ETCD_NAME} \\
   --cert-file=/etc/etcd/etcd-server.crt \\
   --key-file=/etc/etcd/etcd-server.key \\
