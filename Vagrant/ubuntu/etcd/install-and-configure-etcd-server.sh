@@ -10,10 +10,8 @@ sudo mv etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
 
 
 # Configure the etcd Server
-cd "$HOME"
-pwd
+cd "/home/vagrant"
 sudo mkdir -p /etc/etcd /var/lib/etcd
-pwd
 sudo cp ca.crt etcd-server.key etcd-server.crt /etc/etcd/
 
 INTERNAL_IP=$(ip addr show enp0s8 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
