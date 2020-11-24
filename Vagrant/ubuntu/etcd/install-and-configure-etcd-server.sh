@@ -1,7 +1,7 @@
 # Install etcd
 curl -fsSL "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz" -o /tmp/etcd-v3.3.9-linux-amd64.tar.gz
 
-tar -xvf /tmp/etcd-v3.3.9-linux-amd64.tar.gz /tmp/
+tar -xvf -C /tmp /tmp/etcd-v3.3.9-linux-amd64.tar.gz
 sudo mv /tmp/etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
 
 
