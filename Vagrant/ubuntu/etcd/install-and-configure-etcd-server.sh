@@ -10,6 +10,7 @@ sudo mv etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
 
 
 # Configure the etcd Server
+cd ~
 sudo mkdir -p /etc/etcd /var/lib/etcd
 sudo cp ca.crt etcd-server.key etcd-server.crt /etc/etcd/
 
