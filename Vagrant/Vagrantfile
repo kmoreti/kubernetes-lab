@@ -112,10 +112,10 @@ Vagrant.configure("2") do |config|
 
         node.vm.provision "setup-etcd", type: "shell", :path => "ubuntu/etcd/install-and-configure-etcd-server.sh"
 
-        node.vm.provision "file", source: "#{KUBE_API_SERVER}", :path => "/usr/local/bin/"
-        node.vm.provision "file", source: "#{KUBE_CONTROLLER_MANAGER}", :path => "/usr/local/bin/"
-        node.vm.provision "file", source: "#{KUBE_SCHEDULER}", :path => "/usr/local/bin/"
-        node.vm.provision "file", source: "#{KUBE_CTL}", :path => "/usr/local/bin/"
+        node.vm.provision "file", source: "#{KUBE_API_SERVER}", :destination => "/usr/local/bin/"
+        node.vm.provision "file", source: "#{KUBE_CONTROLLER_MANAGER}", :destination => "/usr/local/bin/"
+        node.vm.provision "file", source: "#{KUBE_SCHEDULER}", :destination => "/usr/local/bin/"
+        node.vm.provision "file", source: "#{KUBE_CTL}", :destination => "/usr/local/bin/"
 
       end
   end
