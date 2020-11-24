@@ -1,16 +1,11 @@
 # Install etcd
-sudo apt update
-sudo apt install wget -y
+curl -fsSL "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz" -o /tmp/etcd-v3.3.9-linux-amd64.tar.gz
 
-cd /tmp
-wget -q --show-progress --https-only --timestamping "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz"
-
-tar -xvf etcd-v3.3.9-linux-amd64.tar.gz
-sudo mv etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
+tar -xvf /tmp/etcd-v3.3.9-linux-amd64.tar.gz /tmp/
+sudo mv /tmp/etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
 
 
 # Configure the etcd Server
-cd "/home/vagrant"
 sudo mkdir -p /etc/etcd /var/lib/etcd
 sudo cp ca.crt etcd-server.key etcd-server.crt /etc/etcd/
 
