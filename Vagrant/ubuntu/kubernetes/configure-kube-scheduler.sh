@@ -1,4 +1,5 @@
 MASTER_VAR_LIB_KUBERNETES="/var/lib/kubernetes/"
+MASTER=192.168.5.11
 
 sudo cp kube-scheduler.kubeconfig "$MASTER_VAR_LIB_KUBERNETES"
 
@@ -12,6 +13,7 @@ ExecStart=/usr/local/bin/kube-scheduler \\
   --kubeconfig=/var/lib/kubernetes/kube-scheduler.kubeconfig \\
   --address=127.0.0.1 \\
   --leader-elect=true \\
+  --master=${MASTER} \\
   --v=2
 Restart=on-failure
 RestartSec=5
