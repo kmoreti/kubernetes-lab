@@ -9,9 +9,7 @@ sudo cp ca.crt ca.key kube-apiserver.crt kube-apiserver.key \
 
 INTERNAL_IP=$(ip addr show enp0s8 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
 
-echo $INTERNAL_IP
-
-cat <<EOF | sudo tee /etc/systemd/system/kube-apiserver.service
+cat <<EOF | sudo tee /etc/systemd/system/kube-apiserver.service > /dev/null
 [Unit]
 Description=Kubernetes API Server
 Documentation=https://github.com/kubernetes/kubernetes
