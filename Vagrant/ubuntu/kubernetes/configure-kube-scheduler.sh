@@ -1,6 +1,15 @@
 MASTER_VAR_LIB_KUBERNETES="/var/lib/kubernetes/"
 MASTER=192.168.5.11
 
+cat <<EOF | sudo tee /etc/kubernetes/config/kube-scheduler.yaml
+apiVersion: kubescheduler.config.k8s.io/v1alpha1
+kind: KubeSchedulerConfiguration
+clientConnection:
+  kubeconfig: "/var/lib/kubernetes/kube-scheduler.kubeconfig"
+leaderElection:
+  leaderElect: true
+EOF
+
 sudo cp kube-scheduler.kubeconfig "$MASTER_VAR_LIB_KUBERNETES"
 
 cat <<EOF | sudo tee /etc/systemd/system/kube-scheduler.service
@@ -10,10 +19,8 @@ Documentation=https://github.com/kubernetes/kubernetes
 
 [Service]
 ExecStart=/usr/local/bin/kube-scheduler \\
-  --kubeconfig=/var/lib/kubernetes/kube-scheduler.kubeconfig \\
-  --address=127.0.0.1 \\
+  --config=/etc/kubernetes/config/kube-scheduler.yaml \\
   --leader-elect=true \\
-  --master=${MASTER} \\
   --v=2
 Restart=on-failure
 RestartSec=5

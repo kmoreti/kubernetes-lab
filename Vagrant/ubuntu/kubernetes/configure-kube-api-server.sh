@@ -20,7 +20,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 ExecStart=/usr/local/bin/kube-apiserver \\
   --advertise-address=${INTERNAL_IP} \\
   --allow-privileged=true \\
-  --apiserver-count=3 \\
+  --apiserver-count=2 \\
   --audit-log-maxage=30 \\
   --audit-log-maxbackup=3 \\
   --audit-log-maxsize=100 \\
@@ -40,7 +40,7 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --kubelet-certificate-authority=/var/lib/kubernetes/ca.crt \\
   --kubelet-client-certificate=/var/lib/kubernetes/kube-apiserver.crt \\
   --kubelet-client-key=/var/lib/kubernetes/kube-apiserver.key \\
-  --runtime-config=api/all=true \\
+  --runtime-config='api/all=true' \\
   --service-account-issuer=kubernetes.default.svc \\
   --service-account-signing-key-file=/var/lib/kubernetes/kube-apiserver.key \\
   --service-account-key-file=/var/lib/kubernetes/service-account.crt \\
