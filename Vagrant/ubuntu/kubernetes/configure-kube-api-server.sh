@@ -40,9 +40,9 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --kubelet-certificate-authority=/var/lib/kubernetes/ca.crt \\
   --kubelet-client-certificate=/var/lib/kubernetes/kube-apiserver.crt \\
   --kubelet-client-key=/var/lib/kubernetes/kube-apiserver.key \\
-  --kubelet-https=true \\
-  --runtime-config=api/all \\
+  --runtime-config=api/all=true \\
   --service-account-issuer=kubernetes.default.svc \\
+  --service-account-signing-key-file=/var/lib/kubernetes/kube-apiserver.key \\
   --service-account-key-file=/var/lib/kubernetes/service-account.crt \\
   --service-cluster-ip-range=10.96.0.0/24 \\
   --service-node-port-range=30000-32767 \\
