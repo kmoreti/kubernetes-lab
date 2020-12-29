@@ -146,29 +146,28 @@ check_cert_admin()
 
 check_cert_kcm()
 {
-  printf "${SUCCESS}kube-controller-manager cert and key are correct.\n"
-#    if [ -z $KCMCERT ] && [ -z $KCMKEY ]
-#        then
-#            printf "${FAILED}please specify cert and key location.\n"
-#            exit 1
-#        elif [ -f $KCMCERT ] && [ -f $KCMKEY ]
-#            then
-#                printf "${NC}kube-controller-manager cert and key found, verifying the authenticity.\n"
-#                KCMCERT_SUBJECT=$(openssl x509 -in $KCMCERT -text | grep "Subject: CN"| tr -d " ")
-#                KCMCERT_ISSUER=$(openssl x509 -in $KCMCERT -text | grep "Issuer: CN"| tr -d " ")
-#                KCMCERT_MD5=$(openssl x509 -noout -modulus -in $KCMCERT | openssl md5| awk '{print $2}')
-#                KCMKEY_MD5=$(openssl rsa -noout -modulus -in $KCMKEY | openssl md5| awk '{print $2}')
-#                if [ $KCMCERT_SUBJECT == "Subject:CN=system:kube-controller-manager" ] && [ $KCMCERT_ISSUER == "Issuer:CN=KUBERNETES-CA" ] && [ $KCMCERT_MD5 == $KCMKEY_MD5 ]
-#                    then
-#                        printf "${SUCCESS}kube-controller-manager cert and key are correct.\n"
-#                    else
-#                        printf "${FAILED}Exiting...Found mismatch in the kube-controller-manager certificate and keys.\n"
-#                        exit 1
-#                fi
-#            else
-#                printf "${FAILED}kube-controller-manager.crt / kube-controller-manager.key is missing.\n"
-#                exit 1
-#    fi
+    if [ -z $KCMCERT ] && [ -z $KCMKEY ]
+        then
+            printf "${FAILED}please specify cert and key location.\n"
+            exit 1
+        elif [ -f $KCMCERT ] && [ -f $KCMKEY ]
+            then
+                printf "${NC}kube-controller-manager cert and key found, verifying the authenticity.\n"
+                KCMCERT_SUBJECT=$(openssl x509 -in $KCMCERT -text | grep "Subject: CN"| tr -d " ")
+                KCMCERT_ISSUER=$(openssl x509 -in $KCMCERT -text | grep "Issuer: CN"| tr -d " ")
+                KCMCERT_MD5=$(openssl x509 -noout -modulus -in $KCMCERT | openssl md5| awk '{print $2}')
+                KCMKEY_MD5=$(openssl rsa -noout -modulus -in $KCMKEY | openssl md5| awk '{print $2}')
+                if [ $KCMCERT_SUBJECT == "Subject:CN=system:kube-controller-manager" ] && [ $KCMCERT_ISSUER == "Issuer:CN=KUBERNETES-CA" ] && [ $KCMCERT_MD5 == $KCMKEY_MD5 ]
+                    then
+                        printf "${SUCCESS}kube-controller-manager cert and key are correct.\n"
+                    else
+                        printf "${FAILED}Exiting...Found mismatch in the kube-controller-manager certificate and keys.\n"
+                        exit 1
+                fi
+            else
+                printf "${FAILED}kube-controller-manager.crt / kube-controller-manager.key is missing.\n"
+                exit 1
+    fi
 }
 
 check_cert_kp()
@@ -729,11 +728,11 @@ case $value in
     if [ $master_hostname == "master-1" ]
       then
         check_cert_admin
-        check_cert_kcm
-        check_cert_kp
-        check_cert_ks
+#        check_cert_kcm
+#        check_cert_kp
+#        check_cert_ks
         check_cert_adminkubeconfig
-        check_cert_kpkubeconfig
+#        check_cert_kpkubeconfig
     fi
     check_cert_api
     check_cert_sa
