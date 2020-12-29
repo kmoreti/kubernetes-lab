@@ -19,7 +19,6 @@ ExecStart=/usr/local/bin/kube-scheduler \\
   --config=/var/lib/kubernetes/kube-scheduler.yaml \\
   --bind-address=127.0.0.1 \\
   --leader-elect=true \\
-  --master=https://127.0.0.1
   --v=2
 Restart=on-failure
 RestartSec=5

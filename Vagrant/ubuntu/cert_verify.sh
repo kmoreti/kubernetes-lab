@@ -546,7 +546,7 @@ check_systemd_ks()
 {
     KSCERT=/var/lib/kubernetes/kube-scheduler.crt
     KSKEY=/var/lib/kubernetes/kube-scheduler.key
-    KSKUBECONFIG=/var/lib/kubernetes/kube-scheduler.kubeconfig
+    KSKUBESHEDULERYAML=/var/lib/kubernetes/kube-scheduler.yaml
 
     if [ -z $KSCERT ] && [ -z $KSKEY ]
         then
@@ -556,14 +556,14 @@ check_systemd_ks()
             then
                 printf "${NC}Systemd for kube-scheduler service found, verifying the authenticity.\n"
 
-                KUBECONFIG=$(systemctl cat kube-scheduler.service | grep "\--kubeconfig"| awk '{print $1}'| cut -d "=" -f2)
-                ADDRESS=$(systemctl cat kube-scheduler.service | grep "\--address"| awk '{print $1}'| cut -d "=" -f2)
+                CONFIG=$(systemctl cat kube-scheduler.service | grep "\--config"| awk '{print $1}'| cut -d "=" -f2)
+                ADDRESS=$(systemctl cat kube-scheduler.service | grep "\--bind-address"| awk '{print $1}'| cut -d "=" -f2)
 
-                if [ $KUBECONFIG == $KSKUBECONFIG ] && [ $ADDRESS == "127.0.0.1" ]
+                if [ $CONFIG == $KSKUBESHEDULERYAML ] && [ $ADDRESS == "127.0.0.1" ]
                     then
-                        printf "${SUCCESS}kube-scheduler --kubeconfig, --address are correct.\n"
+                        printf "${SUCCESS}kube-scheduler --config, --bind-address are correct.\n"
                     else
-                        printf "${FAILED}Exiting...Found mismatch in the kube-scheduler --kubeconfig, --address.\n"
+                        printf "${FAILED}Exiting...Found mismatch in the kube-scheduler --config, --bind-address.\n"
                         exit 1
                 fi
             else
