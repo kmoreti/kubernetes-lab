@@ -15,3 +15,5 @@ backend kubernetes-master-nodes
     server master-1 192.168.5.11:6443 check fall 3 rise 2
     server master-2 192.168.5.12:6443 check fall 3 rise 2
 EOF
+
+sudo service haproxy restart
