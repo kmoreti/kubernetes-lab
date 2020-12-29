@@ -52,6 +52,7 @@ Requires=docker.service
 [Service]
 ExecStart=/usr/local/bin/kubelet \\
   --config=${WORKER_VAR_LIB_KUBELET}/kubelet-config.yaml \\
+  --image-pull-progress-deadline=2m \\
   --kubeconfig=${WORKER_VAR_LIB_KUBELET}/kubeconfig \\
   --tls-cert-file=${WORKER_VAR_LIB_KUBELET}/${HOSTNAME}.crt \\
   --tls-private-key-file=${WORKER_VAR_LIB_KUBELET}/${HOSTNAME}.key \\
