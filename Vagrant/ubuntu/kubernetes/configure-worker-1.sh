@@ -69,6 +69,8 @@ EOF
 
 # Configure the Kubernetes Proxy
 
+sudo mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
+
 cat <<EOF | sudo tee /var/lib/kube-proxy/kube-proxy-config.yaml > /dev/null
 kind: KubeProxyConfiguration
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
