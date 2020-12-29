@@ -19,6 +19,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 [Service]
 ExecStart=/usr/local/bin/kube-scheduler \\
   --config=/var/lib/kubernetes/kube-scheduler.yaml \\
+  --address=127.0.0.1 \\
   --leader-elect=true \\
   --master=master-1
   --v=2

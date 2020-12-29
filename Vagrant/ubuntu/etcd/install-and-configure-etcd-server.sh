@@ -27,6 +27,7 @@ ExecStart=/usr/local/bin/etcd \\
   --peer-key-file=/etc/etcd/etcd-server.key \\
   --trusted-ca-file=/etc/etcd/ca.crt \\
   --peer-trusted-ca-file=/etc/etcd/ca.crt \\
+  --ca-file=/etc/etcd/ca.crt \\
   --peer-client-cert-auth \\
   --client-cert-auth \\
   --initial-advertise-peer-urls https://${INTERNAL_IP}:2380 \\
