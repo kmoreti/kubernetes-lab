@@ -1,5 +1,4 @@
 MASTER_VAR_LIB_KUBERNETES="/var/lib/kubernetes/"
-MASTER=192.168.5.11
 
 cat <<EOF | sudo tee /var/lib/kubernetes/kube-scheduler.yaml > /dev/null
 apiVersion: kubescheduler.config.k8s.io/v1alpha1
@@ -21,6 +20,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 ExecStart=/usr/local/bin/kube-scheduler \\
   --config=/var/lib/kubernetes/kube-scheduler.yaml \\
   --leader-elect=true \\
+  --master=master-1
   --v=2
 Restart=on-failure
 RestartSec=5
