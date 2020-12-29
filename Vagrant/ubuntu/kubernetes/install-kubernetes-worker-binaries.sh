@@ -1,0 +1,1 @@
+sudo mv kubectl kube-proxy kubelet /usr/local/bin/
