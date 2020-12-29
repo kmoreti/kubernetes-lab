@@ -1,3 +1,8 @@
+while [ "$(sudo systemctl status kube-apiserver.service | grep Active: | awk -F " " '{print $2$3}')" != "active(running)" ]
+do
+  sleep 1
+done
+
 # Create the Boostrap Token
 
 cat <<EOF | tee bootstrap-token-07401c.yaml > /dev/null
