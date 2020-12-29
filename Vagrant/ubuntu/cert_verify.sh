@@ -104,7 +104,7 @@ check_cert_ca()
                 CACERT_ISSUER=$(openssl x509 -in $CACERT -text | grep "Issuer: CN"| tr -d " ")
                 CACERT_MD5=$(openssl x509 -noout -modulus -in $CACERT | openssl md5| awk '{print $2}')
                 CAKEY_MD5=$(openssl rsa -noout -modulus -in $CAKEY | openssl md5| awk '{print $2}')
-                if [ $CACERT_SUBJECT == "Subject:CN=KUBERNETES-CA" ] && [ $CACERT_ISSUER == "Issuer:CN=KUBERNETES-CA" ] && [ $CACERT_MD5 == $CAKEY_MD5 ]
+                if [ "$CACERT_SUBJECT" == "Subject:CN=KUBERNETES-CA" ] && [ "$CACERT_ISSUER" == "Issuer:CN=KUBERNETES-CA" ] && [ "$CACERT_MD5" == "$CAKEY_MD5" ]
                     then
                         printf "${SUCCESS}CA cert and key are correct.\n"
                     else
