@@ -4,7 +4,7 @@ echo "Installing etcd..."
 ETCD="/tmp/etcd.tar.gz"
 
 tar -C /tmp -xvf "$ETCD" > /dev/null
-sudo mv /tmp/etcd/etcd* /usr/local/bin/
+sudo mv /tmp/etcd-*/etcd* /usr/local/bin/
 
 
 # Configure the etcd Server
