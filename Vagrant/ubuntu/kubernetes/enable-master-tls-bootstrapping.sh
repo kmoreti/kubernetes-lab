@@ -3,7 +3,7 @@ sleep 30
 
 # Create the Boostrap Token
 
-cat <<EOF | tee bootstrap-token-07401c.yaml > /dev/null
+cat <<EOF | sudo -u "$(logname)" tee bootstrap-token-07401c.yaml > /dev/null
 apiVersion: v1
 kind: Secret
 metadata:
@@ -32,12 +32,12 @@ stringData:
   auth-extra-groups: system:bootstrappers:worker
 EOF
 
-kubectl create -f bootstrap-token-07401c.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f bootstrap-token-07401c.yaml --kubeconfig admin.kubeconfig
 
 
 # Authorize workers(kubelets) to create CSR
 
-cat <<EOF | tee csrs-for-bootstrapping.yaml > /dev/null
+cat <<EOF | sudo -u "$(logname)" tee csrs-for-bootstrapping.yaml > /dev/null
 # enable bootstrapping nodes to create CSR
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -53,12 +53,12 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 EOF
 
-kubectl create -f csrs-for-bootstrapping.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f csrs-for-bootstrapping.yaml --kubeconfig admin.kubeconfig
 
 
 # Authorize workers(kubelets) to approve CSR
 
-cat <<EOF | tee auto-approve-csrs-for-group.yaml > /dev/null
+cat <<EOF | sudo -u "$(logname)" tee auto-approve-csrs-for-group.yaml > /dev/null
 # Approve all CSRs for the group "system:bootstrappers"
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -74,12 +74,12 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 EOF
 
-kubectl create -f auto-approve-csrs-for-group.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f auto-approve-csrs-for-group.yaml --kubeconfig admin.kubeconfig
 
 
 # Authorize workers(kubelets) to Auto Renew Certificates on expiration
 
-cat <<EOF | tee auto-approve-renewals-for-nodes.yaml > /dev/null
+cat <<EOF | sudo -u "$(logname)" tee auto-approve-renewals-for-nodes.yaml > /dev/null
 # Approve renewal CSRs for the group "system:nodes"
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -95,6 +95,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 EOF
 
-kubectl create -f auto-approve-renewals-for-nodes.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f auto-approve-renewals-for-nodes.yaml --kubeconfig admin.kubeconfig
 
 echo "TLS bootstrapping has been enabled."
