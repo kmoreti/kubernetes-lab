@@ -1,1 +1,2 @@
-sudo -u "$(logname)" kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+echo "Deploying weave network..."
+sudo -u "$(logname)" kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')" --kubeconfig admin.kubeconfig
