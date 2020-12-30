@@ -141,6 +141,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "master-2" do |node|
       node.vm.provision "file", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
+      node.vm.provision "deploy-weave-network", type: "shell", :path => "ubuntu/kubernetes/deploy-weave-network.sh"
   end
 
   # Provision Load Balancer Node
