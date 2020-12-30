@@ -33,7 +33,7 @@ preferences: {}
 users:
 - name: kubelet-bootstrap
   user:
-    token: 07401c.f395accd246ae52d
+    token: 07401b.f395accd246ae52d
 EOF
 
 
