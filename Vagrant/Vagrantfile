@@ -133,7 +133,6 @@ Vagrant.configure("2") do |config|
         node.vm.provision "start-controller-services", type: "shell", :path => "ubuntu/kubernetes/start-controller-services.sh"
 
         if node.vm.hostname == "master-2"
-            puts "############################# MASTER 2 ######################################################"
             node.vm.provision "file", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
         end
       end
