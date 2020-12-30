@@ -1,3 +1,6 @@
+echo "Enabling TLS bootstrapping..."
+sleep 30
+
 # Create the Boostrap Token
 
 cat <<EOF | tee bootstrap-token-07401c.yaml > /dev/null
@@ -93,3 +96,5 @@ roleRef:
 EOF
 
 kubectl create -f auto-approve-renewals-for-nodes.yaml --kubeconfig admin.kubeconfig
+
+echo "TLS bootstrapping has been enabled."
