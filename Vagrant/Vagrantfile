@@ -203,6 +203,14 @@ Vagrant.configure("2") do |config|
 
         node.vm.provision "file", source: "#{CNI_PLUGINS}", :destination => "/tmp/"
         node.vm.provision "install-cni-plugins", type: "shell", :path => "ubuntu/kubernetes/plugins/install-workers-cni-plugins.sh"
+
+        puts "node"
+        puts "#{node}"
+        puts "node.vm"
+        puts "#{node.vm}"
+        puts "config"
+        puts "#{config}"
+        node.vm.provision "enable-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh"
     end
   end
 
@@ -212,9 +220,5 @@ Vagrant.configure("2") do |config|
     node.vm.provision "file", source: "#{CERT_DIR}/worker-1.key", destination: "$HOME/"
     node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/worker-1.kubeconfig", destination: "$HOME/"
     node.vm.provision "configure-worker-1", type: "shell", :path => "ubuntu/kubernetes/configure-worker-1.sh"
-  end
-
-  config.vm.define "worker-2" do |node|
-    node.vm.provision "enable-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh"
   end
 end
