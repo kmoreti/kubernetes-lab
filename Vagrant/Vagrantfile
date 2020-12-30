@@ -131,9 +131,6 @@ Vagrant.configure("2") do |config|
         node.vm.provision "configure-kubernetes-scheduler", type: "shell", :path => "ubuntu/kubernetes/configure-kube-scheduler.sh"
         # Start controller services
         node.vm.provision "start-controller-services", type: "shell", :path => "ubuntu/kubernetes/start-controller-services.sh"
-
-        node.vm.provision "enable-master-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
-
       end
   end
 
@@ -203,18 +200,14 @@ Vagrant.configure("2") do |config|
          node.vm.provision "configure-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/tls-bootstrapping.sh"
 
         node.trigger.after :up do |trigger|
+            config.vm.define "master-1" do |master|
+                master.vm.provision "enable-master-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
+            end
+            node.vm.provision "enable-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh"
             trigger.name = "Finished Message"
             trigger.info = "#{node.vm.hostname} Machine is up!"
         end
 
     end
   end
-
-  # Provision Worker Nodes
-  (1..NUM_WORKER_NODE).each do |i|
-    config.vm.define "worker-#{i}" do |node|
-        node.vm.provision "enable-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh"
-    end
-  end
-
 end
