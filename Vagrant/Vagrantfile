@@ -143,6 +143,8 @@ Vagrant.configure("2") do |config|
       node.vm.provision "file", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
       node.vm.provision "deploy-weave-network", type: "shell", :path => "ubuntu/kubernetes/deploy-weave-network.sh"
       node.vm.provision "configure-rbac-for-kubelet-authorization", type: "shell", :path => "ubuntu/kubernetes/configure-master-rbac-for-kubelet-authorization.sh"
+      node.vm.provision "file", source: "ubuntu/kubernetes/dns/coredns.yaml", destination: "$HOME/"
+      node.vm.provision "dns-add-on", type: "shell", :path => "ubuntu/kubernetes/dns/apply-dns-add-on.sh"
   end
 
   # Provision Load Balancer Node
