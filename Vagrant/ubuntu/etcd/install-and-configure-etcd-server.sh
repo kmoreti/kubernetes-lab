@@ -1,9 +1,10 @@
 # Install etcd
 echo "Installing etcd..."
-curl -fsSL "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz" -o /tmp/etcd-v3.3.9-linux-amd64.tar.gz
 
-tar -C /tmp -xvf /tmp/etcd-v3.3.9-linux-amd64.tar.gz > /dev/null
-sudo mv /tmp/etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
+ETCD="/tmp/etcd.tar.gz"
+
+tar -C /tmp -xvf "$ETCD" > /dev/null
+sudo mv /tmp/etcd/etcd* /usr/local/bin/
 
 
 # Configure the etcd Server

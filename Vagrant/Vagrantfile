@@ -21,6 +21,10 @@ KUBE_CTL = "/tmp/kubectl"
 KUBE_PROXY = "/tmp/kube-proxy"
 KUBELET = "/tmp/kubelet"
 
+ETCD="/tmp/etcd.tar.gz"
+
+CNI_PLUGINS="/tmp/cni-plugins.tgz"
+
 # Replaces the HOST_IP placeholder on the daemon.json file with the actual host ip
 # The customized daemon.json is needed to allow the VMs to download images from the
 # private registry running on the host
@@ -114,6 +118,7 @@ Vagrant.configure("2") do |config|
         node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/kube-scheduler.kubeconfig", destination: "$HOME/"
         node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/encryption-config.yaml", destination: "$HOME/"
 
+        node.vm.provision "file", source: "#{ETCD}", destination: "/tmp"
         node.vm.provision "setup-etcd", type: "shell", :path => "ubuntu/etcd/install-and-configure-etcd-server.sh"
 
         # Install kubernetes binaries
@@ -131,11 +136,11 @@ Vagrant.configure("2") do |config|
         node.vm.provision "configure-kubernetes-scheduler", type: "shell", :path => "ubuntu/kubernetes/configure-kube-scheduler.sh"
         # Start controller services
         node.vm.provision "start-controller-services", type: "shell", :path => "ubuntu/kubernetes/start-controller-services.sh"
-
-        if node.vm.hostname == "master-2"
-            node.vm.provision "file", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
-        end
       end
+  end
+
+  config.vm.define "master-2" do |node|
+      node.vm.provision "file", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
   end
 
   # Provision Load Balancer Node
@@ -191,6 +196,9 @@ Vagrant.configure("2") do |config|
         node.vm.provision "file", source: "#{KUBE_PROXY}", :destination => "$HOME/"
         node.vm.provision "file", source: "#{KUBELET}", :destination => "$HOME/"
         node.vm.provision "install-kubernetes-binaries", type: "shell", :path => "ubuntu/kubernetes/install-kubernetes-worker-binaries.sh"
+
+        node.vm.provision "file", source: "#{CNI_PLUGINS}", :destination => "$HOME/"
+
         node.vm.provision "enable-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh"
 
         node.trigger.after :up do |trigger|
