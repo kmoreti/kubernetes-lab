@@ -31,7 +31,8 @@ stringData:
   # Extra groups to authenticate the token as. Must start with "system:bootstrappers:"
   auth-extra-groups: system:bootstrappers:worker
 EOF
-
+pwd
+ls -ltrh
 sudo -u "$(logname)" kubectl create -f bootstrap-token-07401c.yaml --kubeconfig admin.kubeconfig
 
 
