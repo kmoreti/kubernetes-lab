@@ -137,7 +137,7 @@ Vagrant.configure("2") do |config|
         node.trigger.after :up do |trigger|
             trigger.only_on = "master-2"
             trigger.name = "Trigger after master-2"
-            trigger.run = {path: "$HOME/enable-master-tls-bootstrapping.sh"}
+            trigger.run = {"enable-master-tls-bootstrapping.sh"}
         end
 
       end
