@@ -1,12 +1,15 @@
 echo "Enabling TLS bootstrapping..."
 
+WORKER_ETC_CNI_NET_D="/etc/cni/net.d"
+WORKER_OPT_CNI_BIN="/opt/cni/bin"
 WORKER_VAR_LIB_KUBELET="/var/lib/kubelet"
-#WORKER_VAR_LIB_KUBELET_PKI="/var/lib/kubelet/pki/"
 WORKER_VAR_LIB_KUBE_PROXY="/var/lib/kube-proxy"
 WORKER_VAR_LIB_KUBERNETES="/var/lib/kubernetes"
 WORKER_VAR_RUN_KUBERNETES="/var/run/kubernetes"
 
 sudo mkdir -p \
+  "$WORKER_ETC_CNI_NET_D" \
+  "$WORKER_OPT_CNI_BIN" \
   "$WORKER_VAR_LIB_KUBELET" \
   "$WORKER_VAR_LIB_KUBE_PROXY" \
   "$WORKER_VAR_LIB_KUBERNETES" \
@@ -34,7 +37,7 @@ preferences: {}
 users:
 - name: kubelet-bootstrap
   user:
-    token: 07401b.f395accd246ae52d
+    token: 07401c.f395accd246ae52d
 EOF
 
 
