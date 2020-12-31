@@ -1,14 +1,13 @@
 echo "Enabling TLS bootstrapping..."
 
 WORKER_VAR_LIB_KUBELET="/var/lib/kubelet"
-WORKER_VAR_LIB_KUBELET_PKI="/var/lib/kubelet/pki/"
+#WORKER_VAR_LIB_KUBELET_PKI="/var/lib/kubelet/pki/"
 WORKER_VAR_LIB_KUBE_PROXY="/var/lib/kube-proxy"
 WORKER_VAR_LIB_KUBERNETES="/var/lib/kubernetes"
 WORKER_VAR_RUN_KUBERNETES="/var/run/kubernetes"
 
 sudo mkdir -p \
   "$WORKER_VAR_LIB_KUBELET" \
-  "$WORKER_VAR_LIB_KUBELET_PKI" \
   "$WORKER_VAR_LIB_KUBE_PROXY" \
   "$WORKER_VAR_LIB_KUBERNETES" \
   "$WORKER_VAR_RUN_KUBERNETES"
