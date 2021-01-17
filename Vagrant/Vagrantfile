@@ -141,7 +141,6 @@ Vagrant.configure("2") do |config|
 ##################################################### parei aqui
   config.vm.define "master-2" do |node|
       node.vm.provision "file", type: "shell", :path => "ubuntu/kubernetes/enable-master-tls-bootstrapping.sh"
-      node.vm.provision "deploy-weave-network", type: "shell", :path => "ubuntu/kubernetes/deploy-weave-network.sh"
       node.vm.provision "configure-rbac-for-kubelet-authorization", type: "shell", :path => "ubuntu/kubernetes/configure-master-rbac-for-kubelet-authorization.sh"
       node.vm.provision "file", source: "ubuntu/kubernetes/dns/coredns.yaml", destination: "$HOME/"
       node.vm.provision "dns-add-on", type: "shell", :path => "ubuntu/kubernetes/dns/apply-dns-add-on.sh"
@@ -202,7 +201,7 @@ Vagrant.configure("2") do |config|
         node.vm.provision "install-kubernetes-binaries", type: "shell", :path => "ubuntu/kubernetes/install-kubernetes-worker-binaries.sh"
 
         node.vm.provision "enable-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh"
-
+        node.vm.provision "deploy-weave-network", type: "shell", :path => "ubuntu/kubernetes/deploy-weave-network.sh"
         node.vm.provision "file", source: "#{CNI_PLUGINS}", :destination => "/tmp/"
         node.vm.provision "install-cni-plugins", type: "shell", :path => "ubuntu/kubernetes/plugins/install-workers-cni-plugins.sh"
 
