@@ -1,1 +1,1 @@
-sudo mv kube-apiserver kube-controller-manager kube-scheduler kubectl /usr/local/bin/
+sudo mv "$BINARIES"/Skube-apiserver "$BINARIES"/kube-controller-manager "$BINARIES"/kube-scheduler "$BINARIES"/kubectl /usr/local/bin/

@@ -1,7 +1,7 @@
 # Install etcd
 echo "Installing etcd..."
 
-ETCD="/tmp/etcd.tar.gz"
+ETCD="$BINARIES/etcd.tar.gz"
 
 tar -C /tmp -xvf "$ETCD" > /dev/null
 sudo mv /tmp/etcd-*/etcd* /usr/local/bin/
@@ -9,7 +9,7 @@ sudo mv /tmp/etcd-*/etcd* /usr/local/bin/
 
 # Configure the etcd Server
 sudo mkdir -p /etc/etcd /var/lib/etcd
-sudo cp ca.crt etcd-server.key etcd-server.crt /etc/etcd/
+sudo cp "$CERTS"/ca.crt "$CERTS"/etcd-server.key "$CERTS"/etcd-server.crt /etc/etcd/
 
 INTERNAL_IP=$(ip addr show enp0s8 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
 
