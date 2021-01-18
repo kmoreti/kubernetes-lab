@@ -4,4 +4,4 @@ export CONFIG="$INSTALLATION/config"
 export CERTS="$INSTALLATION/certs"
 export BINARIES="$INSTALLATION/binaries"
 
-chmod +x "$SCRIPTS/*.sh"
+chmod +x "$SCRIPTS"/*.sh
