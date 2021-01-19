@@ -1,1 +1,1 @@
-sudo mv kubectl kube-proxy kubelet /usr/local/bin/
+sudo mv "$BINARIES"/kubectl "$BINARIES"/kube-proxy "$BINARIES"/kubelet /usr/local/bin/
