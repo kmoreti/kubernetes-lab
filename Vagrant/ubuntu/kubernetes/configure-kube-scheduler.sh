@@ -7,7 +7,7 @@ clientConnection:
   kubeconfig: /var/lib/kubernetes/kube-scheduler.kubeconfig
 EOF
 
-sudo cp kube-scheduler.kubeconfig "$MASTER_VAR_LIB_KUBERNETES"
+sudo cp "$CONFIG"/kube-scheduler.kubeconfig "$MASTER_VAR_LIB_KUBERNETES"
 
 cat <<EOF | sudo tee /etc/systemd/system/kube-scheduler.service > /dev/null
 [Unit]

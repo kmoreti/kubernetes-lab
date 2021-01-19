@@ -2,10 +2,10 @@ MASTER_VAR_LIB_KUBERNETES="/var/lib/kubernetes/"
 
 sudo mkdir -p "$MASTER_VAR_LIB_KUBERNETES"
 
-sudo cp ca.crt ca.key admin.crt admin.key kube-apiserver.crt kube-apiserver.key \
-    service-account.key service-account.crt \
-    etcd-server.key etcd-server.crt \
-    encryption-config.yaml "$MASTER_VAR_LIB_KUBERNETES"
+sudo cp "$CERTS"/ca.crt "$CERTS"/ca.key "$CERTS"/admin.crt "$CERTS"/admin.key "$CERTS"/kube-apiserver.crt "$CERTS"/kube-apiserver.key \
+    "$CERTS"/service-account.key "$CERTS"/service-account.crt \
+    "$CERTS"/etcd-server.key "$CERTS"/etcd-server.crt \
+    "$CERTS"/encryption-config.yaml "$MASTER_VAR_LIB_KUBERNETES"
 
 INTERNAL_IP=$(ip addr show enp0s8 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
 

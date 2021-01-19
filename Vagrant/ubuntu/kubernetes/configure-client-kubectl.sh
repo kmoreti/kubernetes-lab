@@ -1,6 +1,4 @@
 KUBERNETES_LB_ADDRESS=192.168.5.30
-INSTALLATION="$HOME/installation/"
-CERTS="$INSTALLATION/certs/"
 
 sudo -u "$(logname)" kubectl config set-cluster kubernetes-lab \
     --certificate-authority="$CERTS"/ca.crt \

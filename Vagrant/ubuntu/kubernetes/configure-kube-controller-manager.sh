@@ -1,6 +1,6 @@
 MASTER_VAR_LIB_KUBERNETES="/var/lib/kubernetes/"
 
-sudo cp kube-controller-manager.kubeconfig "$MASTER_VAR_LIB_KUBERNETES"
+sudo cp "$CONFIG"/kube-controller-manager.kubeconfig "$MASTER_VAR_LIB_KUBERNETES"
 
 cat <<EOF | sudo tee /etc/systemd/system/kube-controller-manager.service > /dev/null
 [Unit]
