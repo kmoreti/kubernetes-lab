@@ -173,43 +173,51 @@ Vagrant.configure("2") do |config|
   end
 
   # Provision Worker Nodes
-#   (1..NUM_WORKER_NODE).each do |i|
-#     config.vm.define "worker-#{i}" do |node|
-#         node.vm.provider "virtualbox" do |vb|
-#             vb.name = "kubernetes-lab-worker-#{i}"
-#             vb.memory = 512
-#             vb.cpus = 1
-#         end
-#         node.vm.hostname = "worker-#{i}"
-#         node.vm.network :private_network, ip: IP_NW + "#{NODE_IP_START + i}"
-# 		node.vm.network "forwarded_port", guest: 22, host: "#{2720 + i}"
-#
-#         node.vm.provision "setup-hosts", :type => "shell", :path => "ubuntu/vagrant/setup-hosts.sh" do |s|
-#           s.args = ["enp0s8"]
-#         end
-#
-#         node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/kube-proxy.kubeconfig", destination: "$HOME/"
-#         node.vm.provision "setup-dns", type: "shell", :path => "ubuntu/update-dns.sh"
-#         node.vm.provision "install-docker", type: "shell", :path => "ubuntu/install-docker.sh"
-#         node.vm.provision "allow-bridge-nf-traffic", :type => "shell", :path => "ubuntu/allow-bridge-nf-traffic.sh"
-#         node.vm.provision "file", source: "ubuntu/cert_verify.sh", destination: "$HOME/"
-#         node.vm.provision "file", source: "ubuntu/docker/daemon_.json", destination: "/home/vagrant/daemon.json"
-#         node.vm.provision "shell", inline: "mv /home/vagrant/daemon.json /etc/docker/daemon.json"
-#         node.vm.provision "restart-docker", type: "shell", :path => "ubuntu/docker/restart-docker.sh"
-#
-#         node.vm.provision "file", source: "#{CERT_DIR}/ca.crt", destination: "$HOME/"
-#
-#          # Install kubernetes binaries
-#         node.vm.provision "file", source: "#{KUBE_CTL}", :destination => "$HOME/"
-#         node.vm.provision "file", source: "#{KUBE_PROXY}", :destination => "$HOME/"
-#         node.vm.provision "file", source: "#{KUBELET}", :destination => "$HOME/"
-#         node.vm.provision "install-kubernetes-binaries", type: "shell", :path => "ubuntu/kubernetes/install-kubernetes-worker-binaries.sh"
-#
-#         node.vm.provision "enable-worker-tls-bootstrapping", type: "shell", :path => "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh"
-#         node.vm.provision "deploy-weave-network", type: "shell", :path => "ubuntu/kubernetes/deploy-weave-network.sh"
-#         node.vm.provision "file", source: "#{CNI_PLUGINS}", :destination => "/tmp/"
-#         node.vm.provision "install-cni-plugins", type: "shell", :path => "ubuntu/kubernetes/plugins/install-workers-cni-plugins.sh"
-#
-#     end
-#   end
+  (1..NUM_WORKER_NODE).each do |i|
+    config.vm.define "worker-#{i}" do |node|
+        node.vm.provider "virtualbox" do |vb|
+            vb.name = "kubernetes-lab-worker-#{i}"
+            vb.memory = 512
+            vb.cpus = 1
+        end
+        node.vm.hostname = "worker-#{i}"
+        node.vm.network :private_network, ip: IP_NW + "#{NODE_IP_START + i}"
+		node.vm.network "forwarded_port", guest: 22, host: "#{2720 + i}"
+
+        node.vm.provision "setup-hosts", :type => "shell", :path => "ubuntu/vagrant/setup-hosts.sh" do |s|
+          s.args = ["enp0s8"]
+        end
+
+        node.vm.provision "setup-dns", type: "shell", :path => "ubuntu/update-dns.sh"
+        node.vm.provision "install-docker", type: "shell", :path => "ubuntu/install-docker.sh"
+        node.vm.provision "allow-bridge-nf-traffic", :type => "shell", :path => "ubuntu/allow-bridge-nf-traffic.sh"
+
+        INSTALLATION = "$HOME/installation"
+        SCRIPTS = "#{INSTALLATION}/scripts/"
+        CONFIG = "#{INSTALLATION}/config/"
+        CERTS = "#{INSTALLATION}/certs/"
+        BINARIES = "#{INSTALLATION}/binaries/"
+        node.vm.provision "shell", inline: "mkdir #{INSTALLATION}"
+        node.vm.provision "shell", inline: "mkdir #{SCRIPTS}"
+        node.vm.provision "shell", inline: "mkdir #{CONFIG}"
+        node.vm.provision "shell", inline: "mkdir #{CERTS}"
+        node.vm.provision "shell", inline: "mkdir #{BINARIES}"
+
+        node.vm.provision "file", source: "#{CERT_DIR}/ca.crt", destination: "#{CERTS}"
+
+        node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/kube-proxy.kubeconfig", destination: "#{CONFIG}"
+        node.vm.provision "file", source: "ubuntu/docker/daemon_.json", destination: "#{CONFIG}daemon.json"
+
+        # Install kubernetes binaries
+        node.vm.provision "file", source: "#{KUBE_CTL}", :destination => "#{BINARIES}"
+        node.vm.provision "file", source: "#{KUBE_PROXY}", :destination => "#{BINARIES}"
+        node.vm.provision "file", source: "#{KUBELET}", :destination => "#{BINARIES}"
+
+        node.vm.provision "file", source: "ubuntu/cert_verify.sh", destination: "#{SCRIPTS}"
+        node.vm.provision "file", source: "ubuntu/docker/restart-docker.sh", destination: "#{SCRIPTS}"
+        node.vm.provision "file", source: "ubuntu/kubernetes/install-kubernetes-worker-binaries.sh", destination: "#{SCRIPTS}"
+        node.vm.provision "file", source: "ubuntu/kubernetes/deploy-weave-network.sh", destination: "#{SCRIPTS}"
+        node.vm.provision "file", source: "ubuntu/kubernetes/install-worker.sh", destination: "#{SCRIPTS}"
+    end
+  end
 end
