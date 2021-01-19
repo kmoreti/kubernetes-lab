@@ -9,5 +9,6 @@ chmod +x "$SCRIPTS"/*.sh
 sudo cp "${CONFIG}"/daemon.json /etc/docker/daemon.json
 "$SCRIPTS"/restart-docker.sh
 "$SCRIPTS"/install-kubernetes-worker-binaries.sh
+"$SCRIPTS"/configure-client-kubectl.sh
 "$SCRIPTS"/enable-worker-tls-bootstrapping.sh
 "$SCRIPTS"/deploy-weave-network.sh
