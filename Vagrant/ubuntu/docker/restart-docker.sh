@@ -1,2 +1,2 @@
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker

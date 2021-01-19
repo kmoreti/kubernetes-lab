@@ -1,4 +1,4 @@
-cat <<EOF | sudo -u "$(logname)" kubectl apply --kubeconfig admin.kubeconfig -f -
+cat <<EOF | sudo -u "$(logname)" kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -20,7 +20,7 @@ rules:
       - "*"
 EOF
 
-cat <<EOF | sudo -u "$(logname)" kubectl apply --kubeconfig admin.kubeconfig -f -
+cat <<EOF | sudo -u "$(logname)" kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
