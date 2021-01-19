@@ -32,7 +32,7 @@ stringData:
   auth-extra-groups: system:bootstrappers:worker
 EOF
 
-sudo -u "$(logname)" kubectl create -f bootstrap-token-07401c.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f bootstrap-token-07401c.yaml
 
 
 # Authorize workers(kubelets) to create CSR
@@ -53,7 +53,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 EOF
 
-sudo -u "$(logname)" kubectl create -f csrs-for-bootstrapping.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f csrs-for-bootstrapping.yaml
 
 
 # Authorize workers(kubelets) to approve CSR
@@ -74,7 +74,7 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 EOF
 
-sudo -u "$(logname)" kubectl create -f auto-approve-csrs-for-group.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f auto-approve-csrs-for-group.yaml
 
 
 # Authorize workers(kubelets) to Auto Renew Certificates on expiration
@@ -95,6 +95,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 EOF
 
-sudo -u "$(logname)" kubectl create -f auto-approve-renewals-for-nodes.yaml --kubeconfig admin.kubeconfig
+sudo -u "$(logname)" kubectl create -f auto-approve-renewals-for-nodes.yaml
 
 echo "TLS bootstrapping has been enabled."
