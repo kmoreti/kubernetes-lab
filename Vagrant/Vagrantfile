@@ -217,6 +217,7 @@ Vagrant.configure("2") do |config|
         node.vm.provision "file", source: "ubuntu/docker/restart-docker.sh", destination: "#{SCRIPTS}"
         node.vm.provision "file", source: "ubuntu/kubernetes/install-kubernetes-worker-binaries.sh", destination: "#{SCRIPTS}"
         node.vm.provision "file", source: "ubuntu/kubernetes/configure-client-kubectl.sh", destination: "#{SCRIPTS}"
+        node.vm.provision "file", source: "ubuntu/kubernetes/enable-worker-tls-bootstrapping.sh", destination: "#{SCRIPTS}"
         node.vm.provision "file", source: "ubuntu/kubernetes/deploy-weave-network.sh", destination: "#{SCRIPTS}"
         node.vm.provision "file", source: "ubuntu/kubernetes/install-worker.sh", destination: "#{SCRIPTS}"
     end

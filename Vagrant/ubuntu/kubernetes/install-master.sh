@@ -12,3 +12,7 @@ chmod +x "$SCRIPTS"/*.sh
 "$SCRIPTS"/configure-kube-scheduler.sh
 "$SCRIPTS"/start-controller-services.sh
 "$SCRIPTS"/configure-client-kubectl.sh
+"$SCRIPTS"/start-controller-services.sh
+"$SCRIPTS"/enable-master-tls-bootstrapping.sh
+"$SCRIPTS"/configure-master-rbac-for-kubelet-authorization.sh
+"$SCRIPTS"/apply-dns-add-on.sh
