@@ -128,6 +128,7 @@ Vagrant.configure("2") do |config|
         node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/kube-controller-manager.kubeconfig", destination: "#{CONFIG}"
         node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/kube-scheduler.kubeconfig", destination: "#{CONFIG}"
         node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/encryption-config.yaml", destination: "#{CONFIG}"
+        node.vm.provision "file", source: "ubuntu/kubernetes/dns/coredns.yaml", destination: "#{SCRIPTS}"
 
         # Binaries
         node.vm.provision "file", source: "#{ETCD}", destination: "#{BINARIES}"
