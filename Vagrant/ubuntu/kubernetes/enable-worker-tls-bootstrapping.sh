@@ -15,7 +15,7 @@ sudo mkdir -p \
   "$WORKER_VAR_LIB_KUBERNETES" \
   "$WORKER_VAR_RUN_KUBERNETES"
 
-sudo mv ca.crt /var/lib/kubernetes/
+sudo cp "$CERTS"/ca.crt /var/lib/kubernetes/
 
 # Configure Kubelet to TLS Bootstrap
 
