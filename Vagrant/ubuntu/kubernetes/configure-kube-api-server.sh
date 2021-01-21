@@ -5,6 +5,8 @@ sudo mkdir -p "$MASTER_VAR_LIB_KUBERNETES"
 sudo cp "$CERTS"/ca.crt "$CERTS"/ca.key "$CERTS"/admin.crt "$CERTS"/admin.key "$CERTS"/kube-apiserver.crt "$CERTS"/kube-apiserver.key \
     "$CERTS"/service-account.key "$CERTS"/service-account.crt \
     "$CERTS"/etcd-server.key "$CERTS"/etcd-server.crt \
+    "$CERTS"/front-proxy-ca.key "$CERTS"/front-proxy-ca.crt \
+    "$CERTS"/front-proxy-client.key "$CERTS"/front-proxy-client.crt \
     "$CONFIG"/encryption-config.yaml "$MASTER_VAR_LIB_KUBERNETES"
 
 INTERNAL_IP=$(ip addr show enp0s8 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
@@ -38,7 +40,14 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --kubelet-certificate-authority=/var/lib/kubernetes/ca.crt \\
   --kubelet-client-certificate=/var/lib/kubernetes/kube-apiserver.crt \\
   --kubelet-client-key=/var/lib/kubernetes/kube-apiserver.key \\
-  --runtime-config='api/all=true' \\
+  --proxy-client-cert-file=/var/lib/kubernetes/front-proxy-client.crt \\
+  --proxy-client-key-file=/var/lib/kubernetes/front-proxy-client.key \\
+  --requestheader-allowed-names=front-proxy-client \\
+  --requestheader-client-ca-file=/var/lib/kubernetes/front-proxy-ca.crt \\
+  --requestheader-extra-headers-prefix=X-Remote-Extra- \\
+  --requestheader-group-headers=X-Remote-Group \\
+  --requestheader-username-headers=X-Remote-User \\
+  --runtime-config=api/all=true \\
   --service-account-issuer=kubernetes.default.svc \\
   --service-account-signing-key-file=/var/lib/kubernetes/kube-apiserver.key \\
   --service-account-key-file=/var/lib/kubernetes/service-account.crt \\

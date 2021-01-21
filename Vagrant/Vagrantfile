@@ -122,6 +122,10 @@ Vagrant.configure("2") do |config|
         node.vm.provision "file", source: "#{CERT_DIR}/service-account.crt", destination: "#{CERTS}"
         node.vm.provision "file", source: "#{CERT_DIR}/etcd-server.key", destination: "#{CERTS}"
         node.vm.provision "file", source: "#{CERT_DIR}/etcd-server.crt", destination: "#{CERTS}"
+        node.vm.provision "file", source: "#{CERT_DIR}/front-proxy-ca.key", destination: "#{CERTS}"
+        node.vm.provision "file", source: "#{CERT_DIR}/front-proxy-ca.crt", destination: "#{CERTS}"
+        node.vm.provision "file", source: "#{CERT_DIR}/front-proxy-client.key", destination: "#{CERTS}"
+        node.vm.provision "file", source: "#{CERT_DIR}/front-proxy-client.crt", destination: "#{CERTS}"
 
         #Config
         node.vm.provision "file", source: "#{KUBE_CONFIG_DIR}/admin.kubeconfig", destination: "#{CONFIG}"
